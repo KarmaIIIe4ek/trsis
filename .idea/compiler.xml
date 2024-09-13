@@ -12,9 +12,13 @@
         <module name="security-example (1) (info.stepanoff.trsis.samples.jsp)" />
         <module name="filter-servlet-example" />
         <module name="rest-api-example" />
+        <module name="rest-ajax-example" />
         <module name="security-example (2) (info.stepanoff.trsis.samples.dockerapp)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="spring-boot-consoleapp" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

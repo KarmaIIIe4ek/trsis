@@ -16,7 +16,6 @@
     </properties>
 
     <modules>
-        <module>springhelloworld</module>
         <module>lab1example</module>
         <module>lab2example</module>
         <module>lab3example</module>

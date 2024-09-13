@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
-    <artifactId>filter-servlet-example</artifactId>
+    <artifactId>Lab1</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <url>https://maven.apache.org</url>
 
-    <name>filter and servlet example</name>
+    <name>lab1</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
