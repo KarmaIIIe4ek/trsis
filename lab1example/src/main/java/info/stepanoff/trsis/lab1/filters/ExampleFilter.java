@@ -38,27 +38,50 @@ public class ExampleFilter implements Filter {
         filterConfig = null;
     }
 
+//    @Override
+//    public void doFilter(
+//            ServletRequest request,
+//            ServletResponse response,
+//            FilterChain chain) throws IOException, ServletException {
+//
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        final StringWriter writer = new StringWriter();
+//        final PrintWriter printWriter = new PrintWriter(writer);
+//
+//        HttpServletResponseWrapper newResponseWrapper
+//                = new ExampleResponseWrapper((HttpServletResponse) response, printWriter);
+//
+//        chain.doFilter(request, newResponseWrapper);
+//        printWriter.flush();
+//        StringBuffer httpText = writer.getBuffer();
+//
+//        int idx = httpText.indexOf("</body>");
+//        if (idx != -1) {
+//            httpText.insert(idx, "<p>Generated on " + Instant.now() + "</p>");
+//        }
+//        response.getWriter().write(httpText.toString());
+//    }
     @Override
-    public void doFilter(
-            ServletRequest request,
-            ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
         final StringWriter writer = new StringWriter();
         final PrintWriter printWriter = new PrintWriter(writer);
 
-        HttpServletResponseWrapper newResponseWrapper
-                = new ExampleResponseWrapper((HttpServletResponse) response, printWriter);
+        HttpServletResponseWrapper newResponseWrapper =
+                new ExampleResponseWrapper((HttpServletResponse) response, printWriter);
 
-        chain.doFilter(request, newResponseWrapper);
+        // Добавляем текст в начале
+        printWriter.println("<p>Generated on " + Instant.now() + "</p>");
+
+        chain.doFilter(request, newResponseWrapper); // Выполняем сервлет
+
         printWriter.flush();
         StringBuffer httpText = writer.getBuffer();
 
-        int idx = httpText.indexOf("</body>");
-        if (idx != -1) {
-            httpText.insert(idx, "<p>Generated on " + Instant.now() + "</p>");
-        }
+        // Теперь сервлет может завершить ответ, а вы уже добавили свой текст
         response.getWriter().write(httpText.toString());
     }
+
 }

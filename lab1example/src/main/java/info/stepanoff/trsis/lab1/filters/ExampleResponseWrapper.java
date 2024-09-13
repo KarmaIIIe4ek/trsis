@@ -18,7 +18,7 @@ import java.util.Locale;
  */
 public class ExampleResponseWrapper extends HttpServletResponseWrapper{
 
-private final PrintWriter printWriter;
+    private final PrintWriter printWriter;
 
     public ExampleResponseWrapper(HttpServletResponse response, PrintWriter printWriter) {
                 super(response);
