@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
       id: init-database
-      author: pavel.stepanov
+      author: Nikita_Yuragin
       preConditions:
         - onFail: HALT
           not:
             tableExists:
-              tableName: school
+              tableName: lesson
       changes:
         - createTable:
             columns:
@@ -15,45 +15,32 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: school_pkey
-                  name: school_id
+                    primaryKeyName: lesson_pkey
+                  name: lesson_id
                   type: BIGINT
               - column:
                   constraints:
                     nullable: false
-                  name: school_number
-                  type: BIGINT
-              - column:
-                  constraints:
-                    nullable: false
-                  name: school_name
-                  type: VARCHAR(255)
-            tableName: school
-        - createTable:
-            columns:
-              - column:
-                  autoIncrement: true
-                  constraints:
-                    nullable: false
-                    primaryKey: true
-                    primaryKeyName: batch_pkey
-                  name: batch_id
-                  type: BIGINT
-              - column:
-                  constraints:
-                    nullable: false
-                  name: batch_number
+                  name: discipline_name
                   type: VARCHAR(255)
               - column:
                   constraints:
                     nullable: false
-                  name: batch_school_id
-                  type: BIGINT
-            tableName: batch
-        -  addForeignKeyConstraint:
-            baseColumnNames:  batch_school_id
-            baseTableName:  batch
-            constraintName:  fk_batch_to_school
-            referencedColumnNames:  school_id
-            referencedTableName:  school
-
+                  name: lesson_type
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: audience_number
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: address
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: start_time
+                  type: VARCHAR(255)
+            tableName: lesson

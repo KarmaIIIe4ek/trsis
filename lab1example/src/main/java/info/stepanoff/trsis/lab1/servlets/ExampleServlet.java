@@ -13,10 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-/**
- *
- * @author Pavel.Stepanov
- */
+
 @WebServlet(name = "ExampleServlet", urlPatterns = {"/example"})
 public class ExampleServlet extends HttpServlet {
 
