@@ -1,0 +1,294 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Lab 2 Rest API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/public/rest/lessons": {
+      "get": {
+        "tags": [
+          "lesson-rest-controller"
+        ],
+        "summary": "Получить перечень занятий",
+        "description": "Получить перечень занятий - расширенное описание",
+        "operationId": "browse",
+        "responses": {
+          "200": {
+            "description": "Успешное выполнение",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LessonDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Требуется аутентификация",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LessonDTO"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Аутентификация предоставлена, но у пользователя нет доступа",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LessonDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ресурс не найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LessonDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "lesson-rest-controller"
+        ],
+        "summary": "Создать новую запись о занятии",
+        "description": "Создать новую запись о занятии - расширенное описание",
+        "operationId": "handleLessonRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonDataWithoutID"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное выполнение",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Требуется аутентификация",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Аутентификация предоставлена, но у пользователя нет доступа",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ресурс не найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/rest/lessons/discipline/{discipline}": {
+      "get": {
+        "tags": [
+          "lesson-rest-controller"
+        ],
+        "summary": "Поиск занятия по дисциплине",
+        "description": "Поиск занятия по дисциплине - расширенное описание",
+        "operationId": "findByNumber",
+        "parameters": [
+          {
+            "name": "discipline",
+            "in": "path",
+            "description": "Название дисциплины",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешное выполнение",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Требуется аутентификация",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Аутентификация предоставлена, но у пользователя нет доступа",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ресурс не найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/rest/lessons/{id}": {
+      "delete": {
+        "tags": [
+          "lesson-rest-controller"
+        ],
+        "summary": "Удаление записи о занятии",
+        "description": "Удаление записи о занятии - расширенное описание",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор занятия",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешное выполнение"
+          },
+          "401": {
+            "description": "Требуется аутентификация"
+          },
+          "403": {
+            "description": "Аутентификация предоставлена, но у пользователя нет доступа"
+          },
+          "404": {
+            "description": "Ресурс не найден"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LessonDataWithoutID": {
+        "type": "object",
+        "properties": {
+          "discipline": {
+            "type": "string"
+          },
+          "lessonType": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string"
+          }
+        },
+        "description": "JSON с данными о занятии"
+      },
+      "LessonDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор занятия",
+            "format": "int32"
+          },
+          "discipline": {
+            "type": "string",
+            "description": "Название дисциплины"
+          },
+          "lessonType": {
+            "type": "string",
+            "description": "Тип занятия"
+          },
+          "audience": {
+            "type": "string",
+            "description": "Номер аудитории"
+          },
+          "address": {
+            "type": "string",
+            "description": "Адрес"
+          },
+          "start": {
+            "type": "string",
+            "description": "Время начала занятия"
+          }
+        },
+        "description": "Занятие"
+      }
+    }
+  }
+}

@@ -5,17 +5,16 @@
 package info.stepanoff.trsis.samples.rest;
 
 import info.stepanoff.trsis.samples.rest.model.LessonDTO;
+import info.stepanoff.trsis.samples.rest.model.LessonDataWithoutID;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import info.stepanoff.trsis.samples.service.LessonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -75,19 +74,17 @@ public class LessonRestController {
                 @ApiResponse(responseCode = "404",
                         description = "Ресурс не найден")
             })
-    @RequestMapping(value = "/{discipline}/{lessonType}/{audience}/{address}/{start}", method = RequestMethod.POST)
-    public ResponseEntity<LessonDTO> add(
-            @PathVariable("discipline")
-            @Parameter(description = "Название дисциплины") String discipline,
-            @PathVariable("lessonType")
-            @Parameter(description = "Название дисциплины") String lessonType,
-            @PathVariable("audience")
-            @Parameter(description = "Номер аудитории") String audience,
-            @PathVariable("address")
-            @Parameter(description = "Адрес") String address,
-            @PathVariable("start")
-            @Parameter(description = "Время начала занятия") String start)
-    {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<LessonDTO> handleLessonRequest(
+            @Parameter(description = "JSON с данными о занятии", required = true)
+            @RequestBody LessonDataWithoutID requestBody) {
+
+        String discipline = requestBody.getDiscipline();
+        String lessonType = requestBody.getLessonType();
+        String audience = requestBody.getAudience();
+        String address = requestBody.getAddress();
+        String start = requestBody.getStart();
+
         return ResponseEntity.ok(LessonService.add(discipline, lessonType, audience, address, start));
     }
 
@@ -103,7 +100,7 @@ public class LessonRestController {
                 @ApiResponse(responseCode = "404",
                         description = "Ресурс не найден")
             })
-    @RequestMapping(value = "/{discipline}", method = RequestMethod.GET)
+    @RequestMapping(value = "/discipline/{discipline}", method = RequestMethod.GET)
     public ResponseEntity<LessonDTO> findByNumber(@PathVariable("discipline")
             @Parameter(description = "Название дисциплины") String discipline) {
         return ResponseEntity.ok(LessonService.findByDiscipline(discipline));
