@@ -1,4 +1,4 @@
-# Nikita Yuragin's laboratory work on the discipline "TRSIS"
+# Nikita Yuragin's laboratory works on the discipline "TRSIS"
 
 ### Already implemented: 
  - **lab1example**          - a simple servlet and filter implementation
