@@ -1,6 +1,4 @@
-# Code samples for my course named "Technologies of Server System Development"
-
-## list of samples:
+# Nikita Yuragin's laboratory work on the discipline "TRSIS"
 
 ### Already implemented: 
  - **lab1example**          - a simple servlet and filter implementation
