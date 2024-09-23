@@ -12,7 +12,7 @@
     <artifactId>rest-ajax-example</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>AJAX and REST - based webapp</name>
+    <name>lab3</name>
     <url>https://maven.apache.org</url>
 
 	<parent>
