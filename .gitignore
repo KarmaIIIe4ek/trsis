@@ -26,6 +26,11 @@ hs_err_pid*
 /lab6jdbcexample/target/
 /lab3example/target/
 /lab4example/target/
+/Lab5/target/classes/
+/Lab5/target/generated-sources/
+/Lab5/target/generated-test-sources/
+/Lab5/target/test-classes/
+/Lab5/target/maven-status/
 /lab5sample/target/
 /lab5example/target/
 /lab2example/target/
