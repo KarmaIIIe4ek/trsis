@@ -13,18 +13,17 @@
         <module name="filter-servlet-example" />
         <module name="rest-api-example" />
         <module name="rest-ajax-example" />
-        <module name="Lab5" />
         <module name="security-example (2) (info.stepanoff.trsis.samples.dockerapp)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Lab5" target="17" />
       <module name="security-example (1) (info.stepanoff.trsis.samples.jsp)" target="17" />
       <module name="spring-boot-consoleapp" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Lab5" options="-parameters" />
       <module name="filter-servlet-example" options="-parameters" />
       <module name="rest-ajax-example" options="-parameters" />
       <module name="rest-ajax-example (1)" options="" />

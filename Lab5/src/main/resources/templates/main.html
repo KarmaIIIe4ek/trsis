@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Lesson Schedule</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        body {
+            font-family: sans-serif; /* Улучшенный шрифт */
+        }
+        .table-responsive {
+            overflow-x: auto; /* Горизонтальная прокрутка для таблицы */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="d-flex justify-content-between mb-4">
+        <h2 th:text="#{schedule.schedule}">Расписание занятий в университете</h2>
+        <div>
+            <div sec:authorize="isAnonymous()">
+                <a href="/login" th:text="#{login.signIn}" class="btn btn-primary">Войти</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <form name="logoutForm" th:action="@{/logout}" method="post">
+                    <input type="submit" class="btn btn-primary" th:value="#{login.signOut}"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="lessonsTable" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th th:text="#{lesson.id}">Идентификатор</th>
+                <th th:text="#{lesson.discipline}">Дисциплина</th>
+                <th th:text="#{lesson.lessonType}">Тип занятия</th>
+                <th th:text="#{lesson.audience}">Аудитория</th>
+                <th th:text="#{lesson.address}">Адрес</th>
+                <th th:text="#{lesson.start}">Время начала</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lesson : ${lessons}">
+                <td th:text="${lesson.id}"></td>
+                <td th:text="${lesson.discipline}"></td>
+                <td th:text="${lesson.lessonType}"></td>
+                <td th:text="${lesson.audience}"></td>
+                <td th:text="${lesson.address}"></td>
+                <td th:text="${lesson.start}"></td>
+                <td><a href="#" th:href="@{'delete/'+${lesson.id}}" th:text="#{delete.delete}"
+                       class="btn btn-danger btn-sm">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <h3 th:text="#{lesson.addLesson}">Добавить занятие</h3>
+        <form method="POST" th:action="@{'/save'}" th:object="${lesson}" class="form-group">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label th:text="#{lesson.id}" class="form-label">Идентификатор:</label>
+                    <input id="id" th:field="*{id}" type="text" class="form-control">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label th:text="#{lesson.discipline}" class="form-label">Дисциплина:</label>
+                    <input id="discipline" th:field="*{discipline}" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label th:text="#{lesson.lessonType}" class="form-label">Тип занятия:</label>
+                    <input id="lessonType" th:field="*{lessonType}" type="text" class="form-control">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label th:text="#{lesson.audience}" class="form-label">Аудитория:</label>
+                    <input id="audience" th:field="*{audience}" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label th:text="#{lesson.address}" class="form-label">Адрес:</label>
+                    <input id="address" th:field="*{address}" type="text" class="form-control">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label th:text="#{lesson.start}" class="form-label">Время начала:</label>
+                    <input id="start" th:field="*{start}" type="text" class="form-control">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
