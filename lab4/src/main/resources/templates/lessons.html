@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"> 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head>
 
         <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Conternt-Type" content="text/html;charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
         <meta name="_csrf" content="${_csrf.token}" th:content="${_csrf.token}"/>
@@ -24,31 +24,32 @@
     <body ng-app="lessons" ng-controller="LessonsController">
 
         <div sec:authorize="isAnonymous()" >
-            <h1><a href="/login">Login</a></h1>
+            <h1><a href="/login" th:value="#{login.signIn}">Login</a></h1>
         </div>
 
         <div sec:authorize="isAuthenticated()">
             <form name="logoutForm" th:action="@{/logout}" method="post">
-                <input type="submit"  class="btn btn-primary" value="Sign Out"/>
+                <input type="submit"  class="btn btn-primary" th:value="#{login.signOut}"/>
             </form>
         </div>
 
-        <h1>Расписание занятий в университете</h1>
+        <h1 th:text="#{schedule.schedule}">Расписание занятий в университете</h1>
 
         <div ng-controller="getLessons" ng-show="lessonsList.length > 0" >
             <table id="lessonsTable" class="table table-hover">
                 <thead>
                     <tr>
-                        <th><h2>ID</h2></th>
-                        <th><h2>Дисциплина</h2></th>
-                        <th><h2>Тип занятия</h2></th>
-                        <th><h2>Аудитория</h2></th>
-                        <th><h2>Адрес</h2></th>
-                        <th><h2>Время начала</h2></th>
+                        <th><h2 th:text="#{lesson.number}">ID</h2></th>
+                        <th><h2 th:text="#{lesson.discipline}">Дисциплина</h2></th>
+                        <th><h2 th:text="#{lesson.lessonType}">Тип занятия</h2></th>
+                        <th><h2 th:text="#{lesson.audience}">Аудитория</h2></th>
+                        <th><h2 th:text="#{lesson.address}">Адрес</h2></th>
+                        <th><h2 th:text="#{lesson.start}">Время начала</h2></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
+                    <!--
                     <tr ng-repeat="lesson in lessonsList" id="{{lesson.id}}">
                         <td>{{lesson.id}}</td>
                         <td>{{lesson.discipline}}</td>
@@ -56,8 +57,19 @@
                         <td>{{lesson.audience}}</td>
                         <td>{{lesson.address}}</td>
                         <td>{{lesson.start}}</td>
-                        <td><div sec:authorize="isAuthenticated()"><input type="button" value="Удалить" ng-click="deleteLesson(lesson.id)"/></div></td>
+                        <td><div sec:authorize="isAuthenticated()"><input type="button" th:value="#{delete.delete}" ng-click="deleteLesson(lesson.id)"/></div></td>
                     </tr>
+                    -->
+                    <tr th:each="lesson : ${lessons}">
+                        <td th:text="${lesson.id}">lesson.number</td>
+                        <td th:text="${lesson.discipline}">lesson.discipline</td>
+                        <td th:text="${lesson.lessonType}">lesson.lessonType</td>
+                        <td th:text="${lesson.audience}">lesson.audience</td>
+                        <td th:text="${lesson.address}">lesson.address</td>
+                        <td th:text="${lesson.start}">lesson.start</td>
+                        <td><a href="#" th:href="@{'delete/'+${lesson.id}}" th:text="#{delete.delete}">Delete</a></td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -67,26 +79,26 @@
         <div sec:authorize="isAuthenticated()">
             <form role="form" ng-submit="addLesson()">
                 <div class="form-group">
-                    <label for="inputDiscipline" class="form-label">Дисциплина</label>
+                    <label for="inputDiscipline" class="form-label"  th:text="#{lesson.discipline}">Дисциплина</label>
                     <input type="text" class="form-control" id="inputDiscipline" name="inputnumber"  placeholder="Название" ng-model="inputDiscipline"> </input>
                 </div>
                 <div class="form-group mx-auto">
-                    <label for="inputLessonType">Тип занятия</label>
+                    <label for="inputLessonType" th:text="#{lesson.lessonType}">Тип занятия</label>
                     <input type="text" class="form-control mx-auto" id="inputLessonType" name="inputLessonType" ng-model="inputLessonType" placeholder="Тип занятия"></input>
                 </div>
                 <div class="form-group">
-                    <label for="inputAudience">Аудитория</label>
+                    <label for="inputAudience" th:text="#{lesson.audience}">Аудитория</label>
                     <input type="text" class="form-control" id="inputAudience" name="inputAudience" ng-model="inputAudience" placeholder="Номер аудитории"></input>
                 </div>
                 <div class="form-group">
-                    <label for="inputAddress">Адрес</label>
+                    <label for="inputAddress"  th:text="#{lesson.address}">Адрес</label>
                     <input type="text" class="form-control" id="inputAddress" name="inputAddress" ng-model="inputAddress" placeholder="Адрес"></input>
                 </div>
                 <div class="form-group">
-                    <label for="inputStart">Время начала</label>
+                    <label for="inputStart"  th:text="#{lesson.start}">Время начала</label>
                     <input type="text" class="form-control" id="inputStart" name="inputStart" ng-model="inputStart" placeholder="Время начала"></input>
                 </div>
-                <button type="submit" class="btn btn-default">Добавить</button>
+                <button type="submit" class="btn btn-default" th:value="#{send.send}">Добавить</button>
             </form>
         </div>
     </body>
