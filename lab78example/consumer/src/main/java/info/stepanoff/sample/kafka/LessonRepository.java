@@ -10,6 +10,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Pavel
  */
-public interface SchoolRepository extends CrudRepository<School, Integer> {
+public interface LessonRepository extends CrudRepository<Lesson, Integer> {
 
 }

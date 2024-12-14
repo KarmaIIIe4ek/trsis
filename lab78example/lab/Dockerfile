@@ -1,6 +1,5 @@
 # Dockerfile
-FROM docker pull eclipse-temurin:17.0.9_9-jdk
-
+FROM openjdk:17
 RUN mkdir -p /usr/src/myapp
 COPY target/lab78.jar /usr/src/myapp
 RUN mkdir -p /usr/src/myapp/target

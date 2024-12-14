@@ -4,15 +4,15 @@
  */
 package info.stepanoff.trsis.samples.db.dao;
 
-import info.stepanoff.trsis.samples.db.model.LessonPE;
 import org.springframework.data.repository.CrudRepository;
+import
 
 import java.util.List;
 import java.util.Optional;
 
-public interface LessonRepository extends CrudRepository<LessonPE, Integer> {
+public interface LessonRepository extends CrudRepository<Lesson, Integer> {
 
-    public Optional<LessonPE> findByDiscipline(String discipline);
+    public Optional<Lesson> findByDiscipline(String discipline);
 
-    public List<LessonPE> findAll();
+    public List<Lesson> findAll();
 }

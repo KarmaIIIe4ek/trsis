@@ -27,7 +27,7 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<LessonDTO> listAll() {
         return LessonRepository.findAll().stream()
-                .map(LessonPE -> objectMapper.convertValue(LessonPE, LessonDTO.class))
+                .map(Lesson -> objectMapper.convertValue(Lesson, LessonDTO.class))
                 .collect(Collectors.toList());
 
     }

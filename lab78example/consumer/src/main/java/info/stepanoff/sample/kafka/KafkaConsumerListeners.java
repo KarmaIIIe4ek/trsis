@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class KafkaConsumerListeners {
 
     @Autowired
-    SchoolRepository schoolRepository;
+    LessonRepository lessonRepository;
 
     @Transactional
     @KafkaListener(topics = "${kafka.topic}", groupId = "${kafka.groupid}")
@@ -31,9 +31,9 @@ public class KafkaConsumerListeners {
         String op = ((org.apache.avro.util.Utf8) record.value().get("op")).toString();
 
         if (op.equals("d")) {
-            Integer idToDelete = (Integer) record.key().get("school_id");
+            Integer idToDelete = (Integer) record.key().get("lesson_id");
             try {
-                schoolRepository.deleteById(idToDelete);
+                lessonRepository.deleteById(idToDelete);
             } catch (org.springframework.dao.EmptyResultDataAccessException e) {
                 //Команда удаления приходит из удаленного лога репликации
                 //в том числе и в ответ на ответ на удаление в локальном. 
@@ -43,18 +43,25 @@ public class KafkaConsumerListeners {
         }
 
         org.apache.avro.generic.GenericData.Record value = (org.apache.avro.generic.GenericData.Record) record.value().get("after");
-        Integer id = (Integer) value.get("school_id");
-        String name = ((org.apache.avro.util.Utf8) value.get("school_name")).toString();
-        Integer number = (Integer) value.get("school_number");
+        Integer id = (Integer) value.get("lesson_id");
+        String discipline = ((org.apache.avro.util.Utf8) value.get("lesson_discipline")).toString();
+        String lessonType = ((org.apache.avro.util.Utf8) value.get("lesson_lessontype")).toString();
+        String audience = ((org.apache.avro.util.Utf8) value.get("audience")).toString();
+        String address = ((org.apache.avro.util.Utf8) value.get("lesson_address")).toString();
+        String start = ((org.apache.avro.util.Utf8) value.get("lesson_start")).toString();
 
-        School school = schoolRepository.findById(id).orElse(null);
+        Lesson lesson = lessonRepository.findById(id).orElse(null);
 
-        if (school == null) {
-            schoolRepository.save(new School(id, name, number));
+        if (lesson == null) {
+            lessonRepository.save(new Lesson(id, discipline, lessonType, audience, address, start));
         } else {
-            school.setName(name);
-            school.setNumber(number);
-            schoolRepository.save(school);
+            lesson.setId(id);
+            lesson.setDiscipline(discipline);
+            lesson.setLessonType(lessonType);
+            lesson.setAudience(audience);
+            lesson.setAddress(address);
+            lesson.setStart(start);
+            lessonRepository.save(lesson);
         }
     }
 
