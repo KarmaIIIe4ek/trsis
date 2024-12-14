@@ -23,17 +23,10 @@ public class SimpleController {
 
     @PostMapping("/save")
     public String create(@ModelAttribute Lesson lesson, BindingResult bindingResult, Model model){
-        service.create(lesson.getDiscipline(), lesson.getLessonType(), lesson.getAudience(), lesson.getAddress(), lesson.getStart());
+        service.create(lesson.getId(), lesson.getDiscipline(), lesson.getLessonType(), lesson.getAudience(), lesson.getAddress(), lesson.getStart());
         return "redirect:/main";
     }
 
-    @GetMapping("/lessons/{discipline}")
-    public ModelAndView getDiscipline(@PathVariable(name="group") String discipline){
-        final List<Lesson> lessons = service.getByDiscipline(discipline);
-        ModelAndView mav = new ModelAndView("main");
-        mav.addObject("lessons",service.getAll());
-        return mav;
-    }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id){
@@ -43,7 +36,7 @@ public class SimpleController {
 
     @GetMapping("/main")
     public ModelAndView getMainPage(){
-        Lesson lesson = new Lesson(DBHelper.db.size(),"","","","","");
+        Lesson lesson = new Lesson(0,"","","","","");
         ModelAndView mav = new ModelAndView("main");
         mav.addObject("lessons",service.getAll());
         mav.addObject("lesson",lesson);

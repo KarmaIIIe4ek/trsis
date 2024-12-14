@@ -1,7 +1,7 @@
---insert into LESSON (DISCIPLINE_NAME, LESSON_TYPE, AUDIENCE_NUMBER, ADDRESS, START_TIME) values ('Информатика', 'Л', '12-02', 'Гастелло 15', '9:30');
---insert into LESSON (DISCIPLINE_NAME, LESSON_TYPE, AUDIENCE_NUMBER, ADDRESS, START_TIME) values ('Физика', 'Л', '11-06', 'Гастелло 15', '11:10');
---insert into LESSON (DISCIPLINE_NAME, LESSON_TYPE, AUDIENCE_NUMBER, ADDRESS, START_TIME) values ('Математика. Математический анализ', 'ЛР', '12-02', 'Гастелло 15', '16:40');
---insert into LESSON (DISCIPLINE_NAME, LESSON_TYPE, AUDIENCE_NUMBER, ADDRESS, START_TIME) values ('Физическая культура', 'ПР', 'Спортзал', 'Ленсовета 14', '18:30');
+--insert into LESSON (LESSON_ID, LESSON_DISCIPLINE, LESSON_LESSONTYPE, AUDIENCE, LESSON_ADDRESS, LESSON_START) values (0, 'Информатика', 'Л', '12-02', 'Гастелло 15', '9:30');
+--insert into LESSON (LESSON_ID, LESSON_DISCIPLINE, LESSON_LESSONTYPE, AUDIENCE, LESSON_ADDRESS, LESSON_START) values (1, 'Физика', 'Л', '11-06', 'Гастелло 15', '11:10');
+--insert into LESSON (LESSON_ID, LESSON_DISCIPLINE, LESSON_LESSONTYPE, AUDIENCE, LESSON_ADDRESS, LESSON_START) values (2, 'Математика. Математический анализ', 'ЛР', '12-02', 'Гастелло 15', '16:40');
+--insert into LESSON (LESSON_ID, LESSON_DISCIPLINE, LESSON_LESSONTYPE, AUDIENCE, LESSON_ADDRESS, LESSON_START) values (3, 'Физическая культура', 'ПР', 'Спортзал', 'Ленсовета 14', '18:30');
 
 --login guest password hello
 insert into USERS (LOGIN, PASS_HASH) values ('guest','$2a$10$6mf3CesQx9eRGB4B3sjr8e1eSr5cYO/zt87bwYVdA4O8rmjDMDdHO');

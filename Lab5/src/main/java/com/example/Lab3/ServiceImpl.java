@@ -2,6 +2,7 @@ package com.example.Lab3;
 
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,41 +11,38 @@ public class ServiceImpl implements com.example.Lab3.Service {
 
 
     @Override
-    public void create(String discipline,String lessonType,String audience,String address,String start) {
+    public void create(int id, String discipline,String lessonType,String audience,String address,String start) {
 
-        DBHelper.db.add(new Lesson(DBHelper.db.get(DBHelper.db.size()-1).getId()+1,
-                discipline,
-                lessonType,
-                audience,
-                address,
-                start
-        ));
+        try {
+            DBHelper.addLesson(
+                    id,
+                    discipline,
+                    lessonType,
+                    audience,
+                    address,
+                    start
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @Override
     public List<Lesson> getAll() {
-        return DBHelper.db;
-    }
-
-    @Override
-    public List<Lesson> getByDiscipline(String discipline) {
-        List<Lesson> les = new ArrayList<>();
-        for(int i=0;i<DBHelper.db.size();++i){
-            if(DBHelper.db.get(i).getDiscipline().contentEquals(discipline)){
-                les.add(DBHelper.db.get(i));
-            }
+        try {
+            return DBHelper.getAllLesson();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return les;
     }
 
     @Override
     public boolean delete(int id) {
-        for(int i=0;i<DBHelper.db.size();++i){
-            if(DBHelper.db.get(i).getId() == id){
-                DBHelper.db.remove(i);
-                return true;
-            }
+        try {
+            DBHelper.deleteLesson(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return false;
     }

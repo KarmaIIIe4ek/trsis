@@ -8,7 +8,7 @@
 
     <url>https://maven.apache.org</url>
 
-    <name>Kafka and docker example</name>
+    <name>Lab78</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
